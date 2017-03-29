@@ -401,6 +401,7 @@ case object ClockType extends GroundType {
   def mapWidth(f: Width => Width): Type = this
 }
 case class AnalogType(width: Width) extends GroundType {
+  var verilogTpe: String = "inout"
   def serialize: String = "Analog" + width.serialize
   def mapWidth(f: Width => Width): Type = AnalogType(f(width))
 }
