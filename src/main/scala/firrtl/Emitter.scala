@@ -531,7 +531,7 @@ class VerilogEmitter extends Transform with PassBased with Emitter {
         // Turn directions into strings (and AnalogType into inout)
         val dirs = m.ports map { case Port(_, name, dir, tpe) =>
           (dir, tpe) match {
-            case (_, AnalogType(_)) => "inout " // padded to length of output
+            case (_, a: AnalogType) => a.verilogTpe + " " // padded to length of output
             case (Input, _) => "input "
             case (Output, _) =>
               // Assign to the Port
