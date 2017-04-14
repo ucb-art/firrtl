@@ -554,7 +554,8 @@ class VerilogEmitter extends SeqTransform with Emitter {
       def build_streams(s: Statement): Statement = s map build_streams match {
         case sx: DefWire =>
           val wireStringPrefix = sx.tpe match {
-            case a: AnalogType => a.verilogTpe
+            case a: AnalogType if a.verilogTpe != "inout" => 
+              a.verilogTpe
             case _ => "wire"
           }
           declare(wireStringPrefix, sx.name, sx.tpe)
